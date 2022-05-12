@@ -105,7 +105,6 @@
 				53CEFACB43CFA43DEE1A5F58 /* Pods-MovieReviewTests.debug.xcconfig */,
 				D95374D9E31F87B93CD6929A /* Pods-MovieReviewTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -182,6 +181,7 @@
 				E56107E1282CCCF40019F613 /* Sources */,
 				E56107E2282CCCF40019F613 /* Frameworks */,
 				E56107E3282CCCF40019F613 /* Resources */,
+				E5610821282CD2290019F613 /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -268,9 +268,9 @@
 			);
 			mainGroup = E56107DC282CCCF40019F613;
 			packageReferences = (
-				E5610818282CCD360019F613 /* XCRemoteSwiftPackageReference "SnapKit.git" */,
-				E561081B282CCD470019F613 /* XCRemoteSwiftPackageReference "Alamofire.git" */,
-				E561081E282CCD560019F613 /* XCRemoteSwiftPackageReference "Kingfisher.git" */,
+				E5610818282CCD360019F613 /* XCRemoteSwiftPackageReference "SnapKit" */,
+				E561081B282CCD470019F613 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				E561081E282CCD560019F613 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = E56107E6282CCCF40019F613 /* Products */;
 			projectDirPath = "";
@@ -375,6 +375,24 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		E5610821282CD2290019F613 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "${PODS_ROOT}/SwiftLint/swiftlint\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -729,7 +747,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		E5610818282CCD360019F613 /* XCRemoteSwiftPackageReference "SnapKit.git" */ = {
+		E5610818282CCD360019F613 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
 			requirement = {
@@ -737,7 +755,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		E561081B282CCD470019F613 /* XCRemoteSwiftPackageReference "Alamofire.git" */ = {
+		E561081B282CCD470019F613 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
 			requirement = {
@@ -745,7 +763,7 @@
 				minimumVersion = 5.0.0;
 			};
 		};
-		E561081E282CCD560019F613 /* XCRemoteSwiftPackageReference "Kingfisher.git" */ = {
+		E561081E282CCD560019F613 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
 			requirement = {
@@ -758,17 +776,17 @@
 /* Begin XCSwiftPackageProductDependency section */
 		E5610819282CCD360019F613 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E5610818282CCD360019F613 /* XCRemoteSwiftPackageReference "SnapKit.git" */;
+			package = E5610818282CCD360019F613 /* XCRemoteSwiftPackageReference "SnapKit" */;
 			productName = SnapKit;
 		};
 		E561081C282CCD470019F613 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E561081B282CCD470019F613 /* XCRemoteSwiftPackageReference "Alamofire.git" */;
+			package = E561081B282CCD470019F613 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
 		};
 		E561081F282CCD560019F613 /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E561081E282CCD560019F613 /* XCRemoteSwiftPackageReference "Kingfisher.git" */;
+			package = E561081E282CCD560019F613 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
