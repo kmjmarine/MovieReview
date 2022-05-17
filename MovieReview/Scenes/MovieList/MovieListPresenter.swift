@@ -12,6 +12,7 @@ protocol MovieListProtocol: AnyObject {
     func setupSearchBar()
     func setupViews()
     func updateSearchTableView(isHidden: Bool)
+    func pushToMovieViewController(with movie: Movie)
 }
 
 final class MovieListPresenter: NSObject {
@@ -24,6 +25,8 @@ final class MovieListPresenter: NSObject {
         Movie(title: "Starwars", imageURL: "", userRating: "5.0", actor: "ABC", director: "ABC", pubDate: "2022"),
         Movie(title: "Starwars", imageURL: "", userRating: "5.0", actor: "ABC", director: "ABC", pubDate: "2022")
     ]
+    
+    private var currentMovieSearchResult: [Movie] = [ ]
     
     init(
         viewController: MovieListProtocol,
@@ -46,12 +49,14 @@ extension MovieListPresenter: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        currentMovieSearchResult = [ ]
         viewController?.updateSearchTableView(isHidden: true)
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        movieSearchManager.request(from: searchText) { movies in
-            print(movies)
+        movieSearchManager.request(from: searchText) { [weak self] movies in
+            self?.currentMovieSearchResult = movies
+            self?.viewController?.updateSearchTableView(isHidden: false)
         }
     }
 }
@@ -70,6 +75,11 @@ extension MovieListPresenter: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         let inset: CGFloat = 16.0
         return UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let movie = likedMovie[indexPath.item]
+        viewController?.pushToMovieViewController(with: movie)
     }
 }
 
@@ -92,17 +102,27 @@ extension MovieListPresenter: UICollectionViewDataSource {
     }
 }
 
-extension MovieListPresenter: UITableViewDelegate {}
+extension MovieListPresenter: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = currentMovieSearchResult[indexPath.row]
+        viewController?.pushToMovieViewController(with: movie)
+    }
+}
 
 extension MovieListPresenter: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        3
+        currentMovieSearchResult.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = UITableViewCell()
-        cell.textLabel?.text = "\(indexPath)"
+        var resultTitle = currentMovieSearchResult[indexPath.row].title
+        
+        resultTitle = resultTitle.replacingOccurrences(of: "<b>", with: "")
+        resultTitle = resultTitle.replacingOccurrences(of: "</b>", with: "")
+        
+        cell.textLabel?.text = resultTitle
         
         return cell
     }
