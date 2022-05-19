@@ -52,4 +52,31 @@ class MovieListPresenterTests: XCTestCase {
         
         XCTAssertFalse(viewController.isCalledUpdateSearchTableView, "updateSearchTableView is not run")
     }
+    
+    func test_viewDidLoad() {
+        sut.viewDidLoad()
+        
+        XCTAssertTrue(viewController.isCalledSetupNavigationBar)
+        XCTAssertTrue(viewController.isCalledSetupSearchBar)
+        XCTAssertTrue(viewController.isCalledSetupViews)
+    }
+    
+    func test_viewWillAppear() {
+        sut.viewWillAppear()
+        
+        XCTAssertTrue(userDefaultsManager.isCalledGetMovies)
+        XCTAssertTrue(viewController.isCalledIpdateCollectionView)
+    }
+    
+    func test_searchBarTextDidBeginEditing() {
+        sut.searchBarTextDidBeginEditing(UISearchBar())
+        
+        XCTAssertTrue(viewController.isCalledUpdateSearchTableView)
+    }
+    
+    func test_searchBarCancelButtonClicked() {
+        sut.searchBarCancelButtonClicked(UISearchBar())
+        
+        XCTAssertTrue(viewController.isCalledUpdateSearchTableView)
+    }
 }
